@@ -1,0 +1,57 @@
+{
+    "groups": [
+        {
+            "label": "In my RAG and LLM projects",
+            "outlined": false,
+            "items": [
+                "Python",
+                "FastAPI",
+                "Qdrant",
+                "OpenAI API",
+                "Groq API",
+                "Gemini API",
+                "BGE-M3 embeddings",
+                "BM25 (FastEmbed)",
+                "PyMuPDF",
+                "LangChain text splitters",
+                "Whisper",
+                "Pydantic",
+                "Docker",
+                "Nginx"
+            ]
+        },
+        {
+            "label": "Machine learning foundation",
+            "outlined": false,
+            "items": [
+                "scikit-learn",
+                "TensorFlow / Keras",
+                "PyTorch",
+                "NumPy",
+                "Pandas",
+                "Matplotlib"
+            ]
+        },
+        {
+            "label": "Also used",
+            "outlined": false,
+            "items": [
+                "SQL",
+                "C / C++",
+                "Java",
+                "Git and GitHub",
+                "Streamlit",
+                "Flask"
+            ]
+        },
+        {
+            "label": "Still learning",
+            "outlined": true,
+            "items": [
+                "Agentic frameworks and multi-agent design",
+                "Deploying and monitoring AI systems",
+                "AWS (fundamentals, via AWS Academy)"
+            ]
+        }
+    ]
+}

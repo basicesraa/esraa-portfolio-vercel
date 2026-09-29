@@ -1,0 +1,36 @@
+{
+    "steps": [
+        {
+            "tag": "Foundation",
+            "title": "AI Engineering at Tanta University",
+            "text": "I started with the foundations at the Faculty of Engineering, Tanta University. B.Sc. in Artificial Intelligence Engineering, expected 2027.",
+            "exploring": []
+        },
+        {
+            "tag": "Machine learning",
+            "title": "ML intern at Route",
+            "text": "Worked with supervised and unsupervised learning, deep learning, preprocessing, feature engineering and model evaluation, and deployed interactive ML systems.",
+            "exploring": []
+        },
+        {
+            "tag": "Building",
+            "title": "Into GenAI and RAG",
+            "text": "Somewhere along the way I got more interested in the system around the model than the model itself: getting documents in, getting answers out, and making it clear where an answer came from. So far that has produced MedSeek, Egypt Law RAG, and the AG News service.",
+            "exploring": []
+        },
+        {
+            "tag": "In progress",
+            "title": "Now: agentic AI",
+            "text": "Through DEPI's Agentic AI and Generative AI Systems track I'm learning multi-agent designs, memory, tool use, and how to deploy and monitor these systems responsibly.",
+            "exploring": [
+                "Making LLM calls dependable: retries, circuit breakers, fallbacks",
+                "A tiered fallback: hosted API, then a small local model, then rules",
+                "Tool calling and routing"
+            ]
+        }
+    ],
+    "alongside": [
+        "Software internship at DreamSoft on the Dream Gym app: database work in HeidiSQL, QR-based features, and monitoring. First hands-on exposure to Agile and MoSCoW prioritization.",
+        "Taught programming to children with PictoBlox and Python at Innova STEM Education."
+    ]
+}

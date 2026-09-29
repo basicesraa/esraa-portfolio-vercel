@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== PALETTE: change colors in ONE place ===== */
+:root {
+  --color-bg: #E6EAF3;
+  --color-text: #4A4D60;
+  --color-accent: #8559B1;
+  --color-accent-dark: #6B4494;
+  --color-secondary: #D0BDF4;
+  --color-highlight: #A0D2EB;
+  --color-surface: #FFFFFF;
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== FOCUS RING ===== */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1 {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 500;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 1.1;
+  margin: 0;
+}
+
+h2 {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 500;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  margin: 0;
+}
+
+h3 {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+p {
+  max-width: 65ch;
+  margin: 0;
+}
+
+/* ===== SKIP LINK ===== */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  z-index: 9999;
+  background: var(--color-accent);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* ===== MONO LABEL UTILITY ===== */
+.mono-label {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== STRETCHED LINK ===== */
+.stretched-link-card {
+  position: relative;
+}
+.stretched-link-card .stretch-anchor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.stretched-link-card .above-stretch {
+  position: relative;
+  z-index: 2;
+}

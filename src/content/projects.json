@@ -1,0 +1,246 @@
+[
+    {
+        "slug": "medseek",
+        "kind": "lead",
+        "label": "RAG · Multimodal",
+        "title": "MedSeek Infant Health Assistant",
+        "arabicTitle": "",
+        "tagline": "A pediatric assistant that answers only from four clinical guidelines, for doctors or for parents.",
+        "status": "Prototype",
+        "team": true,
+        "myRole": "",
+        "screenshot": "",
+        "links": {
+            "repo": "https://github.com/MedInfant-RAG/MedSeek-Infant-Health-Assistant",
+            "demo": ""
+        },
+        "disclaimer": "MedSeek is an educational prototype. It is not medical advice and not a substitute for a clinician.",
+        "summary": "MedSeek answers infant and child health questions using four pediatric guidelines as its only source, including the WHO Pocket Book of Hospital Care for Children and the Oxford Handbook of Paediatrics. The same question gets a different answer depending on who is asking. A clinician gets structured differentials and drug regimens from the guideline. A parent gets plain language, emergency warning signs, first aid, and no home dosing calculations.",
+        "numbers": [
+            {
+                "value": "4",
+                "label": "guidelines indexed"
+            },
+            {
+                "value": "1,636",
+                "label": "pages"
+            },
+            {
+                "value": "4,182",
+                "label": "chunks"
+            },
+            {
+                "value": "1,024",
+                "label": "dimensions per dense vector"
+            }
+        ],
+        "numbersNote": "These describe the size of the knowledge base, not how well the system performs.",
+        "whatItDoes": [
+            "Answers text questions in English or Arabic, in the language it was asked in.",
+            "Transcribes voice notes in Arabic or English with Whisper.",
+            "Takes a photo of a rash or skin lesion, describes what is visible with a vision model, and uses that description to search the guidelines.",
+            "Shows exact sources: guideline, chapter, section and page.",
+            "Runs as a Telegram bot and as a command-line chat."
+        ],
+        "pipeline": [
+            {
+                "name": "Indexing (done once)",
+                "steps": [
+                    "Guideline PDFs",
+                    "Parse and clean (PyMuPDF)",
+                    "Chunks with title, chapter and section headers",
+                    "Dense (BGE-M3) + sparse (BM25) vectors",
+                    "Qdrant hybrid index"
+                ]
+            },
+            {
+                "name": "Each question",
+                "steps": [
+                    "Text, voice note or photo",
+                    "Child-health scope check",
+                    "Query rewrite and synonym expansion",
+                    "Hybrid search, merged with RRF",
+                    "Answer with [n] citations (GPT-4o-mini)"
+                ]
+            }
+        ],
+        "interestingParts": [
+            {
+                "title": "Hybrid retrieval",
+                "text": "Dense BGE-M3 vectors capture meaning. BM25 catches exact terms like thresholds and drug names. Qdrant merges the two rankings with Reciprocal Rank Fusion."
+            },
+            {
+                "title": "Chunks that remember where they came from",
+                "text": "Each chunk gets its document title, chapter and section added before it is embedded, so a passage about fast breathing keeps track of which guideline and section it belongs to."
+            },
+            {
+                "title": "Guardrails around a risky domain",
+                "text": "A scope check keeps it to child health. A dosing shield stops it from calculating medication doses for parents. When the guidelines don't cover a question, it gives a standard refusal instead of an answer."
+            },
+            {
+                "title": "An evaluation set, not just a demo",
+                "text": "The repository includes a six-tier question set (direct lookups, paraphrases, drug terms, numeric cutoffs, multi-section synthesis, and out-of-scope questions that should be refused) with retrieval metrics (Hit Rate, MRR, NDCG) and an LLM-as-judge check for faithfulness."
+            }
+        ],
+        "limits": [
+            "It is built on four documents. Anything outside them gets a refusal by design.",
+            "It is a prototype for learning and decision support, not a medical device.",
+            "Photo analysis describes what it can see and feeds the search. It is not a diagnosis."
+        ],
+        "stack": [
+            "Python",
+            "PyMuPDF",
+            "LangChain text splitters",
+            "BGE-M3",
+            "FastEmbed BM25",
+            "Qdrant",
+            "OpenAI GPT-4o-mini",
+            "OpenAI Whisper",
+            "python-telegram-bot"
+        ]
+    },
+    {
+        "slug": "egypt-law-rag",
+        "kind": "lead",
+        "label": "RAG · Arabic",
+        "title": "Egypt Law RAG",
+        "arabicTitle": "المستشار القانوني",
+        "tagline": "An Arabic assistant that answers questions about Egyptian law from the law's own text, with the article cited.",
+        "status": "Prototype",
+        "team": true,
+        "myRole": "",
+        "screenshot": "",
+        "links": {
+            "repo": "https://github.com/the-ever-shining-Manal/egypt-law-rag",
+            "demo": ""
+        },
+        "disclaimer": "Egypt Law RAG gives legal information drawn from indexed legal text. It is not legal advice.",
+        "summary": "Ask a question about Egyptian law in Arabic. The system finds the relevant articles in the indexed legislation, with the Penal Code as the main example, and writes an answer using only those articles. The answer comes with the article text and the name of the law it came from. If it can't find reliable context, it says so.",
+        "numbers": [],
+        "numbersNote": "",
+        "whatItDoes": [
+            "Searches legal articles by meaning, using OpenAI embeddings stored in Qdrant.",
+            "Generates answers with gpt-4o-mini, instructed to use only the retrieved text.",
+            "Tries to connect everyday wording to the right legal terms before answering.",
+            "Lets you upload a new legal PDF and rebuild the index from the interface or the API.",
+            "Runs as three Docker containers (FastAPI backend, Nginx frontend, Qdrant) with one command.",
+            "Has a dark-mode Arabic interface."
+        ],
+        "pipeline": [
+            {
+                "name": "Indexing",
+                "steps": [
+                    "Legal PDF",
+                    "Extract text (PyMuPDF)",
+                    "Clean and structure Arabic text (regex)",
+                    "Chunks",
+                    "Embeddings (text-embedding-3-small)",
+                    "Qdrant"
+                ]
+            },
+            {
+                "name": "Each question",
+                "steps": [
+                    "Arabic question",
+                    "Semantic search",
+                    "Most relevant articles",
+                    "Answer from retrieved text only (gpt-4o-mini)",
+                    "Answer with article and law cited"
+                ]
+            }
+        ],
+        "interestingParts": [
+            {
+                "title": "Arabic legal text is awkward to work with",
+                "text": "The PDF text is extracted with PyMuPDF, then cleaned, and regex rules recover the structure of the legal text before it is chunked and indexed."
+            },
+            {
+                "title": "Answers you can check",
+                "text": "Every answer ships with the article text and the law name it relied on, so a reader can verify it against the source."
+            },
+            {
+                "title": "A pipeline, not a one-off script",
+                "text": "Ingest, index, and full-run are separate API endpoints, with another for uploading a new PDF. The interface has a button that runs the whole cycle."
+            },
+            {
+                "title": "Saying no",
+                "text": "When no relevant legal context is found, the system apologizes and does not answer, instead of inventing a legal claim."
+            }
+        ],
+        "limits": [
+            "It covers only the laws that have been indexed, with the Penal Code as the main one.",
+            "It provides legal information from text. It is not legal advice."
+        ],
+        "stack": [
+            "Python",
+            "FastAPI",
+            "PyMuPDF",
+            "Qdrant",
+            "OpenAI embeddings",
+            "OpenAI gpt-4o-mini",
+            "Docker Compose",
+            "Nginx",
+            "Vanilla JavaScript"
+        ]
+    },
+    {
+        "slug": "ag-news-pipeline",
+        "kind": "supporting",
+        "label": "LLM app · Structured output",
+        "title": "AG News Intelligence Pipeline",
+        "arabicTitle": "",
+        "tagline": "Turns a news article into structured data: category, entities, keywords, summary, sentiment, and whether it is breaking news.",
+        "status": "Working project",
+        "team": false,
+        "myRole": "",
+        "screenshot": "",
+        "links": {
+            "repo": "",
+            "demo": ""
+        },
+        "disclaimer": "",
+        "summary": "A small service that sends news articles from the AG News dataset to an LLM and gets back validated JSON. The focus is making the output dependable: schemas, retries, and a fallback for broken JSON.",
+        "numbers": [],
+        "numbersNote": "",
+        "whatItDoes": [
+            "Serves a FastAPI backend with a simple web page for trying it out.",
+            "Calls Groq by default and also supports Gemini.",
+            "Validates every response against Pydantic schemas, retries failed calls with tenacity, and falls back to regex extraction when the JSON comes back broken.",
+            "Has one command-line entry point with serve, evaluate and analyze commands.",
+            "Deploys with Docker Compose."
+        ],
+        "pipeline": [
+            {
+                "name": "Each article",
+                "steps": [
+                    "News article",
+                    "LLM call (Groq or Gemini), retried on failure",
+                    "Parse JSON, regex fallback if broken",
+                    "Validate against Pydantic schema",
+                    "Structured result"
+                ]
+            }
+        ],
+        "interestingParts": [
+            {
+                "title": "Treating the LLM like an unreliable dependency",
+                "text": "Retries, schema validation, and a fallback parser sit between the model and the rest of the app, so a malformed response does not break it."
+            },
+            {
+                "title": "Swappable providers",
+                "text": "Groq is the default and Gemini is supported, selected through configuration and keys in a .env file."
+            }
+        ],
+        "limits": [],
+        "stack": [
+            "Python",
+            "FastAPI",
+            "Pydantic",
+            "tenacity",
+            "Groq API",
+            "Gemini API",
+            "Docker Compose",
+            "HTML and JavaScript"
+        ]
+    }
+]

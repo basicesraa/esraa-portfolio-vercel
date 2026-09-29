@@ -1,0 +1,21 @@
+{
+    "name": "Esraa",
+    "fullName": "Esraa",
+    "siteTitle": "Esraa | AI Engineering Student, RAG and LLM Projects",
+    "description": "AI Engineering student at Tanta University building RAG and LLM systems in Arabic and English. Projects: MedSeek, Egypt Law RAG, AG News Intelligence Pipeline.",
+    "siteUrl": "",
+    "email": "",
+    "github": "",
+    "linkedin": "",
+    "cvUrl": "",
+    "availability": "Open to AI/GenAI internships and small freelance RAG or LLM projects.",
+    "lastUpdated": "September 2026",
+    "heroFlow": [
+        "PDFs",
+        "Clean text",
+        "Chunks",
+        "Embeddings",
+        "Vector search",
+        "Answer + [1] source"
+    ]
+}

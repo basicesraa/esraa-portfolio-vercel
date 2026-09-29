@@ -1,0 +1,31 @@
+[
+    {
+        "title": "Answers that point to their sources",
+        "text": "I've built two assistants that answer from a fixed set of documents and show which passages they used: one for pediatric guidelines, one for Egyptian law. Both are set up to say they don't have the evidence instead of guessing.",
+        "projects": [
+            "medseek",
+            "egypt-law-rag"
+        ]
+    },
+    {
+        "title": "Search that handles meaning and exact terms",
+        "text": "Embeddings are good at paraphrased questions and bad at exact thresholds and drug names. Keyword search is the opposite. MedSeek runs both and merges the results.",
+        "projects": [
+            "medseek"
+        ]
+    },
+    {
+        "title": "Voice and photos as input",
+        "text": "In MedSeek, a voice note in Arabic or English is transcribed, and a photo of a rash is described by a vision model. Both then go through the same retrieval pipeline as a typed question.",
+        "projects": [
+            "medseek"
+        ]
+    },
+    {
+        "title": "LLM output that code can depend on",
+        "text": "The AG News service turns articles into validated JSON. It is built around schemas, retries, and a fallback for malformed responses, since an app can't use almost-valid JSON.",
+        "projects": [
+            "ag-news-pipeline"
+        ]
+    }
+]
